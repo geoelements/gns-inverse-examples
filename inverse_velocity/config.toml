@@ -17,10 +17,10 @@ ground_truth_mpm_inputfile = "mpm_input.json"
 # Forward Simulator sub-table
 [forward_simulator]
 dt_mpm = 0.0025
-model_path = "inverse_velocity/data/"
+model_path = "inverse_velocity/simulator/"
 model_file = "model.pt"
-simulator_metadata_path = "inverse_velocity/data/"
-simulator_metadata_file = "gns_metadata.json"
+simulator_metadata_path = "inverse_velocity/simulator/"
+simulator_metadata_file = "metadata.json"
 
 # Resume sub-table
 [resume]
