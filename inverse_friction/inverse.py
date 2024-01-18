@@ -32,9 +32,9 @@ path = f"inverse_friction/data/{simulation_name}/"
 ground_truth_npz = config["ground_truth_npz"]
 
 # Iterations
-nepoch = config["nepoch"]
+niteration = config["niteration"]
 resume = config["resume"]["enabled"]
-resume_epoch = config["resume"]["resume_epoch"]
+resume_iteration = config["resume"]["resume_iteration"]
 
 # Diff method (`from_mpm` or `from_same_5vels`)
 if config["diff_method"]["fd"] == True and config["diff_method"]["ad"] == False:
@@ -132,17 +132,17 @@ with open(f'{path}/{output_dir}/config.json', 'w') as file:
 
 # Resume
 if resume:
-    print(f"Resume from the previous state: epoch{resume_epoch}")
-    checkpoint = torch.load(f"{path}/{output_dir}/optimizer_state-{resume_epoch}.pt")
-    start_epoch = checkpoint["epoch"]
+    print(f"Resume from the previous state: iteration{resume_iteration}")
+    checkpoint = torch.load(f"{path}/{output_dir}/optimizer_state-{resume_iteration}.pt")
+    start_iteration = checkpoint["iteration"]
     friction_model.load_state_dict(checkpoint['friction_state_dict'])
     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
 else:
-    start_epoch = 0
+    start_iteration = 0
 friction = friction_model.current_params
 
 # Start optimization iteration
-for epoch in range(start_epoch+1, nepoch):
+for iteration in range(start_iteration+1, niteration):
     start = time.time()
     optimizer.zero_grad()  # Clear previous gradients
 
@@ -151,24 +151,24 @@ for epoch in range(start_epoch+1, nepoch):
         run_mpm(path,
                 output_dir,
                 mpm_input,
-                epoch,
+                iteration,
                 friction.item(),
                 analysis_dt,
                 analysis_nsteps,
                 output_steps)
 
         # Make `.npz` to prepare initial state X_1 for rollout
-        convert_hd5_to_npz(path=f"{path}/{output_dir}/mpm_epoch-{epoch}/",
+        convert_hd5_to_npz(path=f"{path}/{output_dir}/mpm_iteration-{iteration}/",
                            uuid=f"/results/{uuid_name}/",
                            ndim=ndim,
-                           output=f"{path}/{output_dir}/x0_epoch-{epoch}.npz",
+                           output=f"{path}/{output_dir}/x0_iteration-{iteration}.npz",
                            material_feature=True,
                            dt=1.0)
 
     # Load data containing X0, and get necessary features.
     # First, obtain ground truth features except for material property
     if x0_mode == "from_mpm":
-        dinit = data_loader.TrajectoriesDataset(path=f"{path}/{output_dir}/x0_epoch-{epoch}.npz")
+        dinit = data_loader.TrajectoriesDataset(path=f"{path}/{output_dir}/x0_iteration-{iteration}.npz")
     elif x0_mode == "from_same_5vels":
         dinit = data_loader.TrajectoriesDataset(path=f"{path}/{ground_truth_npz}")
     else:
@@ -280,11 +280,11 @@ for epoch in range(start_epoch+1, nepoch):
         raise NotImplementedError
 
     # Visualize current prediction
-    print(f"Epoch {epoch-1}, Friction {friction.item():.5f}, Loss {loss.item():.8f}")
+    print(f"iteration {iteration-1}, Friction {friction.item():.5f}, Loss {loss.item():.8f}")
     visualize_final_deposits(predicted_positions,
                              target_positions,
                              metadata,
-                             write_path=f"{path}/{output_dir}/inversion-{epoch-1}.png",
+                             write_path=f"{path}/{output_dir}/inversion-{iteration-1}.png",
                              friction=friction.item())
 
     # Perform optimization step
@@ -294,18 +294,18 @@ for epoch in range(start_epoch+1, nepoch):
     time_for_iteration = end - start
 
     # Save and report optimization status
-    if epoch % save_step == 0:
+    if iteration % save_step == 0:
 
-        # Make animation at the last epoch
-        if epoch == nepoch-1:
-            print(f"Rendering animation at {epoch}...")
+        # Make animation at the last iteration
+        if iteration == niteration-1:
+            print(f"Rendering animation at {iteration}...")
             positions_np = np.concatenate(
                 (initial_positions.permute(1, 0, 2).detach().cpu().numpy(),
                  predicted_positions.detach().cpu().numpy())
             )
             make_animation(positions=positions_np,
                            boundaries=metadata["bounds"],
-                           output=f"{path}/{output_dir}/animation-{epoch}.gif",
+                           output=f"{path}/{output_dir}/animation-{iteration}.gif",
                            timestep_stride=5)
 
         # Save optimizer state
@@ -314,7 +314,7 @@ for epoch in range(start_epoch+1, nepoch):
         if diff_method == 'fd':
             time_ad_forward, time_ad_backprop = 'none', 'none'
         torch.save({
-            'epoch': epoch,
+            'iteration': iteration,
             'time_spent': {
                 "time_for_iteration": time_for_iteration,
                 "time_ad": {"forward": time_ad_forward, "backprop": time_ad_backprop},
@@ -331,7 +331,7 @@ for epoch in range(start_epoch+1, nepoch):
             'grad': friction.grad.item(),
             'loss_regularization': {"loss_limit": loss_limit, "penalty_mag": penalty_mag} if loss_regularization else None,
             'dphi': dphi if diff_method == "fd" else None
-        }, f"{path}/{output_dir}/optimizer_state-{epoch}.pt")
+        }, f"{path}/{output_dir}/optimizer_state-{iteration}.pt")
 
     if loss < loss_limit:
         print(f"Loss reached lower than {loss_limit}")

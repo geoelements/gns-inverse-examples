@@ -7,7 +7,7 @@ import subprocess
 def run_mpm(path,
             output_dir,
             mpm_input,
-            epoch,
+            iteration,
             friction,
             analysis_dt,
             analysis_nsteps,
@@ -27,7 +27,7 @@ def run_mpm(path,
 
     # %% PREPARE MPM INPUTS
     # make mpm folder for current phi guess
-    mpm_folder = os.path.join(f"{path}/outputs", f"mpm_epoch-{epoch}")
+    mpm_folder = os.path.join(f"{path}/outputs", f"mpm_iteration-{iteration}")
     os.makedirs(mpm_folder, exist_ok=True)
     # mpm input files should be located in the `path`
     file_paths = [
@@ -60,8 +60,8 @@ def run_mpm(path,
             module reset
             module load intel
             module load libfabric
-            timeout 30 mpm -i /mpm_input.json -f "{path}/{output_dir}/outputs/mpm_epoch-{epoch}/"
-            mpm -i /mpm_input_resume.json -f "{path}/{output_dir}/mpm_epoch-{epoch}/"
+            timeout 30 mpm -i /mpm_input.json -f "{path}/{output_dir}/outputs/mpm_iteration-{iteration}/"
+            mpm -i /mpm_input_resume.json -f "{path}/{output_dir}/mpm_iteration-{iteration}/"
             ''')
 
     # run mpm
