@@ -36,7 +36,7 @@ angle $\phi$ of the granular column that produces a target runout distance.
 
 ### Required data
 To run the inverse analysis, the `data` and `simulator` files should be located 
-in `./inverse_friction/` directory. We shared these files [here]().
+in `./inverse_friction/` directory. We shared these files [here](https://doi.org/10.17603/ds2-0wjq-0j84).
 
 ### Run
 To carry out the inverse,
@@ -75,7 +75,7 @@ of each layer in the multi-layered granular column that produces a target runout
 ### Required data
 Similar to `inverse_friction`, to run the inverse analysis, 
 the `data` and `simulator` files should be located 
-in `./Inverse_velocity/` directory. We shared these files [here]().
+in `./Inverse_velocity/` directory. We shared these files [here](https://doi.org/10.17603/ds2-0wjq-0j84).
 
 ### Run
 To carry out the inverse,
@@ -102,7 +102,7 @@ Our AD-GNS can be used for designing engineering structures, which involves opti
 parameters of structural systems to achieve a specific functional outcome. This example 
 demonstrate the use of AD-GNS in the design of the debris-resisting baffles to achieve 
 a target runout distance. Our inverse analysis aims to optimally position the baffles to halt 
-granular flow within a fined area.
+granular flow within a predefined area.
 
 <p align="center">
   <img width="50%" src="figs/baffle_initial_config.png">
@@ -112,7 +112,7 @@ granular flow within a fined area.
 ### Required data
 Similar to the previous cases, to run the inverse analysis, 
 the `data` and `simulator` files should be located 
-in `./Inverse_barrier/` directory. We shared these files [here]().
+in `./Inverse_barrier/` directory. We shared these files [here](https://doi.org/10.17603/ds2-0wjq-0j84).
 
 ### Run
 To carry out the inverse,
