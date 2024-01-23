@@ -140,7 +140,7 @@ flow toe centroid compared to the target:
   <img width="50%" src="figs/barrier_deposit_reconst.png">
 </p>
 
-* See our video: [Link](https://youtu.be/cpGq9ikSH28)
+* See our video: [Link](https://youtu.be/kavtEKsB3hA)
 
 
 
