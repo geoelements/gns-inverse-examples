@@ -9,11 +9,9 @@ the proposed method (AD-GNS).
 ## Set up
 ### Clone the repository
 ```shell
-git clone https://github.com/geoelements/gns-inverse-examples.git
+git clone --recurese-submodules https://github.com/geoelements/gns-inverse-examples.git
 ```
-The current GNS code in this repository is based on
-[this specific version](https://github.com/geoelements/gns/tree/4f6a4a4aa58f8de37bf29df2cf2e0cae4154cd81).
-More recent versions of GNS might not work.
+> Note that this project submodules [this GNS](https://github.com/geoelements/gns).
 
 ### Build virtual environment on TACC LS6
 * SSH to TACC LS6 GPU node.
@@ -80,7 +78,7 @@ in `./Inverse_velocity/` directory. We shared these files [here](https://doi.org
 ### Run
 To carry out the inverse,
 ```shell
-python3 inverse_velocity/inverse.py --input_path="inverse_velocity/config.json>"
+python3 inverse_velocity/inverse.py --input_path="inverse_velocity/config.toml"
 ```
 ### Result
 
@@ -125,7 +123,7 @@ in `./Inverse_barrier/` directory. We shared these files [here](https://doi.org/
 ### Run
 To carry out the inverse,
 ```shell
-python3 inverse_velocity/inverse.py --input_path="inverse_barrier/config.json>"
+python3 inverse_velocity/inverse.py --input_path="inverse_barrier/config.json"
 ```
 
 ### Result
@@ -140,7 +138,8 @@ flow toe centroid compared to the target:
   <img width="50%" src="figs/barrier_deposit_reconst.png">
 </p>
 
-* See our video: [Link](https://youtu.be/kavtEKsB3hA)
+* Video link:
+[<img src="figs/videolink.png">](https://youtu.be/kavtEKsB3hA)
 
 
 
