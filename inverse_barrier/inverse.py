@@ -5,7 +5,7 @@ import sys
 import optimizations
 from utils import *
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append('gns')
 from inverse_velocity.utils import To_Torch_Model_Param
 from gns import reading_utils
 from gns import train

@@ -13,7 +13,7 @@ from utils import visualize_final_deposits
 from utils import visualize_velocity_profile
 from utils import To_Torch_Model_Param
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+sys.path.append('gns')
 from gns import reading_utils
 from gns import data_loader
 from gns import train
