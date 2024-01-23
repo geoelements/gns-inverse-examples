@@ -30,7 +30,7 @@
     "metadata_file": "metadata.json"
   },
   "resume": {
-    "enabled": true,
+    "enabled": false,
     "epoch": 0
   },
   "save_options": {
