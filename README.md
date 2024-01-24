@@ -9,7 +9,7 @@ the proposed method (AD-GNS).
 ## Set up
 ### Clone the repository
 ```shell
-git clone --recurese-submodules https://github.com/geoelements/gns-inverse-examples.git
+git clone --recurse-submodules https://github.com/geoelements/gns-inverse-examples.git
 ```
 > Note that this project submodules [this GNS](https://github.com/geoelements/gns).
 
