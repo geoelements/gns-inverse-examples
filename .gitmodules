@@ -1,0 +1,3 @@
+[submodule "gns"]
+	path = gns
+	url = https://github.com/geoelements/gns.git
