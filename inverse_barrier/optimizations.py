@@ -329,31 +329,3 @@ def adam(
             write_path=f"{output_dir}/trj-{iteration}.gif")
 
     return barrier_zlocs, values_for_save
-
-
-
-# def get_loss(runout_end_pred,
-#              runout_end_true,
-#              barrier_locs,
-#              search_area,
-#              penalty_scale=None):
-#     """
-#     Compute loss
-#     Args:
-#         runout_end_pred (torch.tensor):
-#         runout_end_true (torch.tensor):
-#         barrier_locs (torch.tensor): parameters for optimization
-#         search_area (torch.tensor): barrier location constraint
-#         penalty_scale (float): magnitude for penalty term
-#
-#     Returns:
-#         loss
-#
-#     """
-#     if penalty_scale is None:
-#         loss = torch.mean((runout_end_pred - runout_end_true) ** 2)
-#     else:
-#         penalty = penalty_scale *
-#         loss = torch.mean((runout_end_pred - runout_end_true) ** 2)
-#
-#     return loss

@@ -180,17 +180,6 @@ else:
     raise ValueError("Check `optimizer type`")
 
 
-    # TODO (yc): When to save animation?
-    # # Save animation after iteration
-    # if iteration % save_step == 0:
-    #     render_animation(
-    #         predicted_positions,
-    #         current_particle_type,
-    #         mpm_inputs,
-    #         timestep_stride=10,
-    #         write_path=f"{output_dir}/trj-{iteration}.gif")
-
-
 
 
 
